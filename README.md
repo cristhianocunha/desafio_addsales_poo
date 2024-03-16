@@ -1,4 +1,6 @@
 
+# Desafio 2024
+Objetivo desse desafio é praticar e estudar uso do paraparadigmas de programação Orientada a Objeto.
 
 
 # Região
