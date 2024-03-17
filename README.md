@@ -2,6 +2,34 @@
 # Desafio 2024
 Objetivo desse desafio é praticar e estudar uso do paraparadigmas de programação Orientada a Objeto.
 
+# Docker Compose
+Foi configurado um docker compose, para poder usar tera que fazer umas configurações.
+Com docker instalado em sua maquina, abrar o terminal da pasta do projeto.
+
+- linux
+```bash
+ docker compose up
+```
+- Caso seja windows
+```bash
+docker-compose up
+```
+
+- Com docker funcionando instalei o PDO no php/apache
+```bash
+docker compose exec apache-php docker-php-ext-install pdo pdo_mysql mysqli
+```
+
+- Depois reincie o docker
+
+```bash
+docker compose  stop
+```
+- Reinicie o docker 
+
+```bash
+docker compose start
+```
 
 # Região
 Sul: -4 pontos

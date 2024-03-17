@@ -20,7 +20,7 @@ class Banco
     ) {
     }
 
-    public function connect() 
+    public function connect()
     {
         try {
             $this->conn = new PDO("mysql:host=$this->servername;dbname=$this->dbname", $this->username, $this->password);
@@ -44,8 +44,8 @@ class Banco
 
     public function sendBanco($segmento, $data)
     {
-        $sql = "INSERT INTO $segmento (nome, email, telefone, data_nascimento, regiao, unidade, score) 
-        VALUES (:nome, :email, :telefone, :data_nascimento, :regiao, :unidade, :score)";
+        $sql = "INSERT INTO $segmento (nome, email, telefone, data_nascimento, regiao, cidade, score, data_criacao) 
+        VALUES (:nome, :email, :telefone, :data_nascimento, :regiao, :cidade, :score, :data_criacao)";
         $stmt = $this->conn->prepare($sql);
 
         $stmt->bindParam(':nome', $data['nome']);
@@ -53,10 +53,14 @@ class Banco
         $stmt->bindParam(':telefone', $data['telefone']);
         $stmt->bindParam(':data_nascimento', $data['data_nascimento']);
         $stmt->bindParam(':regiao', $data['regiao']);
-        $stmt->bindParam(':unidade', $data['regiao']);
+        $stmt->bindParam(':cidade', $data['unidade']);
         $stmt->bindParam(':score', $data['score']);
-        $stmt->execute();
 
+        // Vincule a data atual ao marcador de posição :data_criacao
+        $data_criacao = date("Y-m-d H:i:s");
+        $stmt->bindParam(':data_criacao', $data_criacao);
+
+        $stmt->execute();
 
         if ($stmt->rowCount()) {
             return true;

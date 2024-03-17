@@ -1,13 +1,11 @@
 <?php
 
 namespace app\classes;
-
-require_once 'app/classes/Banco.php';
-
-use app\classes\Banco as Banco;
+require_once 'app/classes/banco.php';
+use app\classes\Banco;
 use DateTime;
 
-class Lead
+class LeadBase
 {
 
     public function __construct(
@@ -24,7 +22,7 @@ class Lead
 
     public function sendDb($cliente, $segmento)
     {
-        $banco = new Banco("127.0.0.1", "root", "", $cliente);
+        $banco = new Banco("db", "root", "example", $cliente);
         $banco->connect();
         $banco->sendBanco($segmento, [
             'nome' => $this->nome,

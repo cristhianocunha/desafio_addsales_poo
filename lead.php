@@ -1,10 +1,8 @@
 <?php
+require_once 'app/classes/Leadbase.php';
+use app\classes\LeadBase;
 
-include_once "app\classes\Lead.php";
-
-use app\classes\Lead;
-
-$lead = new Lead(
+$lead = new LeadBase(
   $_POST["nome"],
   $_POST["email"],
   $_POST["telefone"],
@@ -15,5 +13,4 @@ $lead = new Lead(
 );
 $lead->regionScore();
 $lead->ageScore($lead->caculeAge());
-var_dump($lead->score);
 $lead->sendDb("add_sales", "leads");
