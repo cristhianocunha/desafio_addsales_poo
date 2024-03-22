@@ -1,7 +1,9 @@
 <?php
 
 namespace app\classes;
+
 require_once 'app/classes/banco.php';
+
 use app\classes\Banco;
 use DateTime;
 
@@ -19,7 +21,6 @@ class LeadBase
     ) {
     }
 
-
     public function sendDb($cliente, $segmento)
     {
         $banco = new Banco("db", "root", "example", $cliente);
@@ -35,7 +36,7 @@ class LeadBase
         ]);
     }
 
-    public function regionScore(): int
+    public function regionScore(): LeadBase
     {
         $regionScore = match ($this->regiao) {
             "Sul" => 4,
@@ -48,8 +49,8 @@ class LeadBase
         if ($this->unidade == 'São Paulo') {
             $regionScore--;
         }
-        $score = $this->score - ($regionScore);
-        return $this->score = $score;
+        $this->score = $this->score - ($regionScore);
+        return $this;
     }
 
     public function caculeAge(): int
@@ -59,14 +60,14 @@ class LeadBase
         return $age->y;
     }
 
-    public function ageScore($idade)
+    public function ageScore(): LeadBase
     {
+        $idade = $this->caculeAge();
         if ($idade > 100 || $idade < 18) {
             $this->score = $this->score - 5;
         } elseif ($idade > 40 && $idade < 99) {
             $this->score = $this->score - 3;
         }
-
-        return $this->score;
+        return $this;
     }
 }

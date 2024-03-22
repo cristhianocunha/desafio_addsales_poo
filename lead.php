@@ -11,6 +11,4 @@ $lead = new LeadBase(
   $_POST["unidade"],
   $_POST["score"],
 );
-$lead->regionScore();
-$lead->ageScore($lead->caculeAge());
-$lead->sendDb("add_sales", "leads");
+$lead->regionScore()->ageScore()->sendDb("add_sales", "leads");
