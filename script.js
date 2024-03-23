@@ -1,3 +1,5 @@
+
+
 const citiesByregiao = {
   Sul: ["Porto Alegre", "Curitiba"],
   Sudeste: ["São Paulo", "Rio de Janeiro", "Belo Horizonte"],
@@ -41,12 +43,12 @@ function submitForm() {
     data: formData,
     cache: false,
     success: function (response) {
-      alert("¡Formulario enviado con éxito!");
-
+      var mensagemElemento = document.getElementById('mensagem'); 
+      mensagemElemento.innerText = "Obrigado pelo cadastro!";
     },
     error: function (error) {
-
-      alert("Ocorreu um erro ao enviar o formulário. Por favor, tente novamente.");
+      var mensagemElemento = document.getElementById('mensagem');
+      mensagemElemento.innerText = "Ocorreu um erro ao enviar o formulário. Por favor, tente novamente.";
     }
   });
 
@@ -60,6 +62,28 @@ $('#submit').click(function () {
 $(function () {
   $('.next-step').click(function (event) {
     event.preventDefault();
-    $(this).parents('.form-step').hide().next().show();
+
+    var currentStep = $(this).parents('.form-step');
+    var requiredFields = currentStep.find('[required]');
+    var fieldsCompleted = true;
+    var fieldName = []
+
+    requiredFields.each(function () {
+      if ($(this).val() === '') {
+        var namefield = $(this).attr('name');
+        fieldName.push(" " + namefield + " ")
+      }
+
+    });
+    requiredFields.each(function () {
+      if ($(this).val() === '') {
+        fieldsCompleted = false;
+      }
+    });
+    if (fieldsCompleted) {
+      currentStep.hide().next().show();
+    } else {
+      alert('Por favor, preencha todos os campos obrigatórios.' + fieldName);
+    }
   });
 });
