@@ -4,9 +4,16 @@ function validarTel() {
   $(document).ready(function () {
     var $campoTelefone = $('#telefone');
     $campoTelefone.on('input', function (event) {
-      var numeroLimpo = $(this).val().replace(/\D/g, '');
-      const numeroFormatado = numeroLimpo.replace(/^(\d{2})(\d{5})(\d{4})$/, '($1) $2-$3');
-      $(this).val(numeroFormatado);
+      var numeroLimpo = $(this).val().replace(/\D/g, ''); // Remove todos os caracteres que não são dígitos      
+      if (numeroLimpo.slice(2, 3) === '3') { // Verifica se o número de telefone tem 11 dígitos (incluindo DDD)
+        const numeroFormatado = numeroLimpo.replace(/^(\d{2})(\d{4})(\d{4})$/, '($1) $2-$3');
+        $(this).val(numeroFormatado);
+      } else if (numeroLimpo.slice(2, 3) === '9') { // Verifica se o número de telefone tem 10 dígitos
+        const numeroFormatado = numeroLimpo.replace(/^(\d{2})(\d{5})(\d{4})$/, '($1) $2-$3');
+        $(this).val(numeroFormatado);
+      } // Você pode adicionar mais condições conforme necessário para outros padrões de formatação
+
+
     });
   })
 };
@@ -19,7 +26,6 @@ function verificarDDD() {
       function verificarCodigosArea(numero) {
         var ddd = numero.slice(0, 2);
         if (!data.ddd.includes(ddd)) {
-          console.log("esta dificil")
           resolve(false);
         } else {
           resolve(true);
@@ -29,21 +35,38 @@ function verificarDDD() {
     });
   });
 }
-function validarNome() {
-  $(document).ready(function () {
-    var $campoNome = $('#nome');
-    $campoNome.on('input', function (event) {
-      var nomeLimpo = $(this).val().replace(/\D/g, '');
-      const nomeRegex = /^[a-zA-Z]+$/.test(nomeLimpo);
-      if (nomeRegex) {
-        console.log("A sequência contém apenas letras.");
-    } else {
-        console.log("A sequência contém números.");
 
-    }
-    });
+function validarNome() {
+
+
+  $(document).ready(function () {
+    $("#nome").on("input", function () {
+      var regexp = /[^a-zA-Z]/g;
+      if (this.value.match(regexp)) {
+        $(this).val(this.value.replace(regexp, ' '));
+      }
+    })
   })
 };
+function validarEmail() {
+  $(document).click(function () {
+  $('#email').on("input", function () {
+   
+    function valide(email) {
+      var re = /\S+@\S+\.\S+/;
+     return re.test(email)
+    }
+    console.log('aq')
+    var email = $('#email')
+    if (valide(email)) {
+      console.log('email')
+    } else {
+      console.log('erro')
+    };
+  })
+})
+}
+
 
 const citiesByregiao = {
   Sul: ["Porto Alegre", "Curitiba"],
@@ -143,3 +166,4 @@ $(function () {
 });
 var numeroLimpo = validarTel()
 validarNome()
+validarEmail()
