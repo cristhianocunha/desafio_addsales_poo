@@ -1,0 +1,15 @@
+{
+    "name": "cristhiano/desafio-addsales",
+    "autoload": {
+        "psr-4": {
+            "Cristhiano\\DesafioAddsales\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Cristhiano Cunha",
+            "email": "cristhiano.cunha@gmail.com"
+        }
+    ],
+    "require": {}
+}

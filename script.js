@@ -102,7 +102,6 @@ function submitForm() {
     data_nascimento: data_nascimento,
     regiao: regiao,
     unidade: unidade,
-    score: score
   };
 
   $.ajax({
